@@ -1,0 +1,120 @@
+<header class="flex justify-between items-center ml-10">
+  <div class="w-1/3">
+  </div>
+  <h1 class="w-1/3 title font-zen-dots-regular bg-clip-text text-shadow-lg/30  text-shadow-cyan-50 ">BITS AND BOTS</h1>
+  <div class="w-1/3 flex justify-end">
+    <p-button link="true" (click)="isMenuOpen = true" severity="secondary">
+      <span class="text-amber-50 italic">Continúa tu curso <i class="pi pi-arrow-right"></i></span>
+    </p-button>
+    <div class="w-5"></div>
+  </div>
+</header>
+<section class="bg-splash border-3 border-blue-50 rounded-2xl flex justify-center items-center">
+  <p-button (click)="showRegisterDialogue()" styleClass="shadow-lg shadow-cyan-100 font-zen-dots-regular w-50" label="Empieza ya" severity="contrast"/>
+</section>
+<p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="dialogueVisible" styleClass="!border-0 !bg-transparent">
+  <ng-template #headless>
+    <section class="flex justify-center items-center rounded-2xl bg-color shadow-lg shadow-blue-900 ring-2">
+          <form #userRegisterForm="ngForm" (ngSubmit)="userSubmitRegistration(userRegisterForm)" class="flex flex-col gap-6 "
+                style="border-radius: 12px; padding: 3rem">
+          <div class="inline-flex items-center justify-center">
+            <h1 class="text-blue-100 text-2xl font-bold italic">Formulario de registro</h1>
+          </div>
+          <div class="inline-flex flex-col gap-2">
+            <label for="email" class="text-primary-50 font-semibold">Correo electrónico</label>
+            <input name="email" type="email" pInputText id="email" class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80" [(ngModel)]="userRegisterInfo.email" />
+          </div>
+          <div class="inline-flex flex-col gap-2">
+            <label for="password" class="text-primary-50 font-semibold">Contraseña</label>
+            <input
+              name="password"
+              pInputText
+              id="password"
+              class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
+              type="password"
+              [(ngModel)]="userRegisterInfo.password"
+            />
+          </div>
+          <div class="inline-flex flex-col gap-2">
+            <label for="confirmPassword" class="text-primary-50 font-semibold">Confirmar contraseña</label>
+            <input
+              name="confirmPassword"
+              pInputText
+              id="confirmPassword"
+              class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
+              type="password"
+            />
+          </div>
+          <div class="flex items-center gap-4">
+            <p-button
+              label="Cancelar"
+              (click)="closeDialogue()"
+              [text]="true"
+              styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10"
+              class="w-full"
+            />
+
+            <p-button
+              label="Empezar"
+              [text]="true"
+              styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10"
+              class="w-full"
+              type="submit"
+            />
+          </div>
+      </form>
+      <p-divider layout="vertical" styleClass="h-90 ring-1 ring-blue-900"/>
+      <form #userLoginForm="ngForm" (ngSubmit)="userSubmitLogin(userLoginForm)" class="flex flex-col gap-6"
+            style="border-radius: 12px; padding: 3rem">
+        <div class="inline-flex items-center justify-center">
+          <h1 class="text-blue-100 text-2xl font-bold italic">Bienvenido de nuevo</h1>
+        </div>
+        <div class="inline-flex flex-col gap-2">
+          <label for="login-email" class="text-primary-50 font-semibold">Correo electrónico</label>
+          <input name="email" type="email" pInputText id="login-email" class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80" [(ngModel)]="userLoginInfo.email" />
+        </div>
+        <div class="inline-flex flex-col gap-2">
+          <label for="login-password" class="text-primary-50 font-semibold">Contraseña</label>
+          <input
+            name="password"
+            pInputText
+            id="login-password"
+            class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
+            type="password"
+            [(ngModel)]="userLoginInfo.password"
+          />
+        </div>
+        <p-button
+            label="Continuar"
+            [text]="true"
+            styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10"
+            class="w-full"
+            type="submit"
+          />
+      </form>
+
+
+    </section>
+
+  </ng-template>
+</p-dialog>
+<app-side-menu [userEmail]="this.currentUser().email" [isOpen]="isMenuOpen" (logoutEvent)="logout()" (loginEvent)="showRegisterDialogue()" (hideMenuEvent)="isMenuOpen = false"/>
+<section class="m-auto w-full timeline">
+  <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+    <ng-template #marker let-event>
+        <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
+            <i [class]="event.icon"></i>
+        </span>
+    </ng-template>
+    <ng-template #content let-event>
+      <p-card [header]="event.status">
+        <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
+        <p>{{event.description}}</p>
+      </p-card>
+    </ng-template>
+  </p-timeline>
+</section>
+<footer class="text-9xl text-blue-50 font-bold">
+  <h1>¿Todavía indeciso?</h1>
+  <p-button styleClass="w-50 shadow-lg shadow-cyan-100">Contáctanos</p-button>
+</footer>
