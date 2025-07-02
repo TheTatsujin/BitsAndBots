@@ -3,11 +3,6 @@
 @import "primeicons/primeicons.css";
 @plugin "tailwindcss-primeui";
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
 html, body {
   scrollbar-width: none;
 }

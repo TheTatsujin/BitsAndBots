@@ -73,7 +73,10 @@ export class MainPageComponent implements OnInit {
     this.userAuthService.signInUser(this.userLoginInfo).then( user => {
         form.reset();
         this.closeDialogue();
-        if(user) this.currentUser.set(user)
+        if(user) {
+          this.currentUser.set(user)
+          console.log(this.userAuthService.stringToHash(this.currentUser().id))
+        }
         this.isMenuOpen = true;
       });
   }

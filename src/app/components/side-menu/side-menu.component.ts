@@ -58,12 +58,12 @@ export class SideMenuComponent {
         {
           label: 'Lecciones',
           icon: 'pi pi-caret-right',
-          routerLink: 'course/lessons'
+          routerLink: '/course/lessons'
         },
         {
           label: 'Ejercicios',
           icon: 'pi pi-pencil',
-          routerLink: 'course/exercises'
+          routerLink: '/course/exercises'
         }
       ]
     },

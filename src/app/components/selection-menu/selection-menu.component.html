@@ -1,1 +1,133 @@
-<h1 class="text-amber-50 p-10 text-8xl font-bold">This is the route: {{ currentRoute }}</h1>
+<div class="card">
+  <app-side-menu [userEmail]="this.currentUser().email" [isOpen]="isMenuOpen" (logoutEvent)="logout()" (hideMenuEvent)="isMenuOpen = false"/>
+
+  <p-data-view #dv [value] = "this.contentList()" layout="grid">
+    <ng-template #header>
+      <div class="flex justify-start gap-2 items-center">
+        <p-button routerLink="" severity="secondary" variant="text">
+          <i class="pi pi-home"></i>
+        </p-button>
+        <p>{{this.contentType == 'Lesson' ? "Lecciones" : "Ejercicios"}}</p>
+        <div class="grow text-right gap-2">
+          <p-button variant="text" severity="secondary" (click)="isMenuOpen = true">
+            {{this.currentUser().email}}
+            <p-button severity="contrast" styleClass="w-8 h-8" rounded="rounded">
+              <i class="pi pi-user"></i>
+            </p-button>
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #grid let-contentList>
+      <article>
+        <!-- Description Modal -->
+        <section>
+          <p-dialog  header="{{selected.title}}" [modal]="true" [(visible)]="descriptionVisible" [style]="{ width: '35rem', height: '35rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+            <div class="flex flex-col items-center gap-4 mb-4 overflow-scroll">
+              <p class="mb-8">{{ selected.description }}</p>
+              <p class="mb-8">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+              <p class="mb-8">
+                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+                ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+                adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
+                commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+              </p>
+              <p class="mb-8">
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
+                officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
+                placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non
+                recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+              </p>
+              <p class="mb-8">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+              <p class="mb-8">
+                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+                ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+                adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
+                commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+              </p>
+              <p class="mb-24">
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
+                officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
+                placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non
+                recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+              </p>
+            </div>
+            <div class="gap-2 absolute bottom-8 right-8 w-full">
+              <div class="flex justify-end gap-2">
+                <p-button severity="contrast" rounded="rounded" styleClass="w-8 h-8" (click)="descriptionVisible = false" >
+                  <i class="pi pi-arrow-right"></i>
+                </p-button>
+              </div>
+            </div>
+          </p-dialog>
+        </section>
+        <!-- Selection grid -->
+        <section >
+
+        </section>
+        <section class="grid grid-cols-12 gap-4 grid-nogutter">
+          <div *ngFor="let content of contentList" class="col-span-6 sm:col-span-6 md:col-span-4 xl:col-span-4 p-2">
+            <div
+              class="p-6 border border-surface-200 dark:border-surface-700 dark:bg-surface-900 rounded flex flex-col">
+              <div class="flex justify-end items-center">
+                @if (this.userProgress().progress[content.id - 1]){
+                  <div class="grow">
+                    <p-progress-bar [value]="this.userProgress().progress[content.id - 1] * 10" color="#A0FFA0"/>
+                  </div>
+                  @if(this.userProgress().progress[content.id - 1] === 10) {
+                    <div class="btn-complete">
+                      <p-button styleClass="w-8 h-8 rounded-xl cursor-none" severity="success" variant="text">
+                        <i class="pi pi-check"></i>
+                      </p-button>
+                    </div>
+                  }
+                  @else {
+                    <div class="btn-unlocked">
+                    <p-button styleClass="w-8 h-8 rounded-xl cursor-none" severity="secondary" variant="text">
+                      <i class="pi pi-lock-open"></i>
+                    </p-button>
+                    </div>
+                  }
+                } @else {
+                  <div class="h-14"></div>
+                }
+              </div>
+              <div class="flex justify-center rounded">
+                <div class="relative mx-auto ">
+                  @if (this.userProgress().progress[content.id - 1]){
+                    <div class="relative-center text-blue-100 z-10 invisible hover:visible w-full">
+                      <i class="pi pi-play"></i>
+                    </div>
+                  }
+                  @else {
+                    <i class="pi pi-lock absolute-center z-10 text-white"></i>
+                  }
+                  <img class="rounded-xl xl:w-90 lg:w-70 md:w-50 sm:w-30 max-sm:w-20 transition-full ease-out delay-100 duration-150 {{ this.userProgress().progress[content.id - 1] ? 'hover:p-10 hover:drop-shadow-2xl hover:brightness-75 cursor-pointer': 'blur-sm brightness-60 saturate-0' }}"
+                    [src]="content.img" [alt]="'Imagen de ' + content.title" style="max-width: 600px" />
+                </div>
+              </div>
+              <div class="pt-6">
+                <div class="flex flex-col justify-between items-center products-start gap-1">
+                  <h1 class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ "Lección " + content.id }}</h1>
+                  <div class="w-full text-center">
+                    <h1 class="text-2xl mb-5 font-bold">{{ content.title }}</h1>
+                  </div>
+                  <div class="flex flex-row justify-center items-center self-center w-full ">
+                    <p-button (click)="descriptionVisible = true; selectedContent = content.id" outlined="true" severity="contrast" styleClass="text-xs">Más información</p-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </article>
+    </ng-template>
+  </p-data-view>
+</div>

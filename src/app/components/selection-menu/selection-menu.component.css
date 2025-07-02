@@ -1,0 +1,23 @@
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.relative-center {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn-complete {
+  border: 2px solid #A0FFA0 !important;
+  border-radius: 50px;
+}
+
+.btn-unlocked {
+  border: 2px solid var(--color-gray-300);
+  border-radius: 50px;
+}
