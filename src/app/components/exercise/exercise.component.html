@@ -1,0 +1,20 @@
+<header>
+  <app-side-menu [userEmail]="this.currentUser().email" [isOpen]="isMenuOpen" (logoutEvent)="logout()" (hideMenuEvent)="isMenuOpen = false"/>
+
+  <nav class="flex items-center justify-start p-2 bg-surface-100 border-surface-0">
+    <p-button type="text" severity="secondary" (click)="this.router.navigate([''])">
+      <i class="pi pi-home"></i>
+    </p-button>
+    <p-button type="text" severity="secondary" (click)="this.router.navigate(['/course/exercises'])">
+      Ejercicios
+    </p-button>
+    <section class="grow text-right">
+      <p-button variant="text" severity="secondary" (click)="isMenuOpen = true">
+        {{this.currentUser().email}}
+        <p-button severity="contrast" styleClass="w-8 h-8" rounded="rounded">
+          <i class="pi pi-user"></i>
+        </p-button>
+      </p-button>
+    </section>
+  </nav>
+</header>

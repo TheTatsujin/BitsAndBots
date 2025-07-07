@@ -9,12 +9,14 @@ import {
 } from '@angular/fire/auth';
 import {User} from '../model/user.interface';
 import {BehaviorSubject, map} from 'rxjs';
+import {UserProgressService} from './user-progress.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   firebaseAuth = inject(Auth);
+  progressService = inject(UserProgressService)
   private currentUser= new BehaviorSubject<FirebaseUser | null>(null);
   public user$ = this.currentUser.asObservable();
 
@@ -55,8 +57,11 @@ export class AuthService {
 
   async registerUser(newUser: User): Promise<User | null> {
     return createUserWithEmailAndPassword(this.firebaseAuth, newUser.email, newUser.password)
-      .then( credential => this.fromCredentialToUser(credential)
-    )
+      .then( credential => this.fromCredentialToUser(credential))
+      .then((u) => {
+        if (u) this.progressService.newProgress(this.stringToHash(u.id), [1])
+        return u;
+      })
   }
 
   async logout(){
@@ -68,7 +73,6 @@ export class AuthService {
     return signInWithEmailAndPassword(this.firebaseAuth, user.email, user.password)
       .then( credential => this.fromCredentialToUser(credential))
       .catch(err => console.log(err));
-
   }
 
 }

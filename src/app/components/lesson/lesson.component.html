@@ -1,0 +1,44 @@
+<header>
+  <app-side-menu [userEmail]="this.currentUser().email" [isOpen]="isMenuOpen" (logoutEvent)="logout()" (hideMenuEvent)="isMenuOpen = false"/>
+
+  <nav class="flex items-center justify-start p-2 bg-surface-100 border-surface-0">
+    <p-button type="text" severity="secondary" (click)="this.router.navigate([''])">
+      <i class="pi pi-home"></i>
+    </p-button>
+    <p-button type="text" severity="secondary" (click)="this.router.navigate(['/course/lessons'])">
+      Lecciones
+    </p-button>
+    <section class="grow text-right">
+      <p-button variant="text" severity="secondary" (click)="isMenuOpen = true">
+        {{this.currentUser().email}}
+        <p-button severity="contrast" styleClass="w-8 h-8" rounded="rounded">
+          <i class="pi pi-user"></i>
+        </p-button>
+      </p-button>
+    </section>
+  </nav>
+</header>
+<div class="flex justify-center items-center" style="height: 100vh">
+  <p-carousel [value]="slides()" [numVisible]="1" [numScroll]="1" [circular]="false" styleClass="h-full" [prevButtonProps]=this.buttonStyle [nextButtonProps]=this.buttonStyle>
+    <ng-template let-slide #item>
+      <div class="border-4 border-sky-200 rounded-border m-2 p-4 bg-surface-50 h-full">
+        <div class="mb-4 font-medium text-2xl text-pretty pl-10 pt-2 pr-10" style="height: 60vh;">
+          <p class="mb-5">
+            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut h endrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+          </p>
+          <p class="mb-5">
+          </p>
+          <p class="mb-2">
+            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+          </p>
+          <p class="mb-2">
+            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+          </p>
+        </div>
+      </div>
+
+    </ng-template>
+  </p-carousel>
+
+</div>

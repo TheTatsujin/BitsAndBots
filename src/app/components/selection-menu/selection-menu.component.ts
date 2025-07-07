@@ -14,21 +14,27 @@ import {Progress} from '../../model/progress.interface';
 import {ProgressBar} from 'primeng/progressbar';
 import {Toast} from 'primeng/toast';
 import {Tema} from '../../model/tema.interface';
+import {Accordion, AccordionContent, AccordionHeader, AccordionPanel} from 'primeng/accordion';
+import {of} from 'rxjs';
+import {UserProgressService} from '../../services/user-progress.service';
 
 @Component({
   selector: 'app-selection-menu',
   imports: [
-    DataView, ButtonModule, CommonModule, FormsModule, Dialog, RouterLink, SideMenuComponent, ProgressBar, Toast
+    DataView, ButtonModule, CommonModule, FormsModule, Dialog, RouterLink, SideMenuComponent, ProgressBar, Toast, AccordionPanel, AccordionHeader, AccordionContent, Accordion
   ],
   templateUrl: './selection-menu.component.html',
   styleUrl: './selection-menu.component.css'
 })
+
 export class SelectionMenuComponent implements OnInit {
+  disabled = false;
   isMenuOpen = false;
   selectedContent: number = 1;
   descriptionVisible: boolean = false;
   contentService: ContentService = inject(ContentService);
   userAuthService: AuthService = inject(AuthService);
+  progressService: UserProgressService = inject(UserProgressService);
   contentList: WritableSignal<Content[]> = signal<Content[]>([]);
   currentUser: WritableSignal<User> = signal<User>({ id: "", email: "", password: "" });
   userProgress: WritableSignal<Progress> = signal<Progress>({id: "", userID: -1, progress: []});
@@ -41,6 +47,16 @@ export class SelectionMenuComponent implements OnInit {
     return newRoute.charAt(0).toUpperCase() + newRoute.substring(1, newRoute.length - 1);
   }
 
+  getRouteName(route: string): string {
+    if (route === '') return '';
+    return route.replace('course/', '')
+  }
+
+  gotToContent(contentID: number) {
+    if (this.userProgress().progress[contentID - 1])
+      this.router.navigate(['/' + (this.activatedRoute.snapshot.routeConfig?.path || '') + '/' + contentID]).then()
+  }
+
   logout(): void {
     this.userAuthService.logout().then(() => {
       this.router.navigate(['']).then();
@@ -51,7 +67,7 @@ export class SelectionMenuComponent implements OnInit {
     return this.contentList()[this.selectedContent - 1];
   }
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(protected activatedRoute: ActivatedRoute, protected router: Router) {
   }
 
   ngOnInit() {
@@ -59,7 +75,7 @@ export class SelectionMenuComponent implements OnInit {
       sub.subscribe(user => {
         if(user) {
           this.currentUser.set(user);
-          this.contentService.getUserProgress(
+          this.progressService.getUserProgress(
             this.userAuthService.stringToHash(this.currentUser().id))
             .subscribe(progress => {
               if (progress) this.userProgress.set(progress);
@@ -73,7 +89,15 @@ export class SelectionMenuComponent implements OnInit {
       .getContentList(this.contentType)
       .subscribe(contentList => {
       this.contentList.set(contentList.sort((a, b) => a.id - b.id));
-      console.log(contentList);
+      console.log(this.contentList());
     });
+
+    this.contentService.getTemaList().subscribe(temaList => {
+      this.temaList.set(temaList.sort((a, b) => a.id - b.id));
+      console.log(temaList);
+    })
   }
+
+
+  protected readonly of = of;
 }
