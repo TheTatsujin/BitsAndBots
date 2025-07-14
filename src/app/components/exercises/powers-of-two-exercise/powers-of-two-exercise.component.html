@@ -1,0 +1,69 @@
+<ng-container *ngFor="let exponent of this.exponents; let index = index">
+  <p-card header="" styleClass="text-center mt-15" >
+    <div class="flex justify-evenly items-center">
+      <div class="flex justify-center grow">
+        <p class="text-9xl text-center">
+          2 <sup>{{ exponent }}</sup>
+        </p>
+      </div>
+      <div>
+        <p class="text-9xl ">=</p>
+      </div>
+      <section class="flex grow justify-evenly items-center">
+        <div class="flex flex-col items-center justify-center">
+          <p-knob [ngModel]="results[index]" [min]="minValue" [max]="maxValue" size="200" (onChange)="increaseSlider(index)" />
+          <p-button-group>
+            <p-button severity="contrast" (click)="increaseSlider(index)">
+              <i class="pi pi-plus"></i>
+            </p-button>
+            <p-button severity="contrast" (click)="decreaseSlider(index)">
+              <i class="pi pi-minus"></i>
+            </p-button>
+          </p-button-group>
+        </div>
+        <div class="text-xl input-number">
+          <p-input-number size="large" [inputStyle]="{ width: '5rem' }"  [(ngModel)]="results[index]" [useGrouping]="false" [min]="minValue" [max]="maxValue"/>
+        </div>
+      </section>
+    </div>
+  </p-card>
+
+</ng-container>
+<p-confirm-dialog #cd>
+  <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
+    <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
+      <div
+        class="rounded-full bg-surface-900 text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
+      >
+        <i class="pi pi-question !text-5xl"></i>
+      </div>
+      <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
+      <p class="mb-0">{{ message.message }}</p>
+      <div class="flex items-center gap-2 mt-6">
+        <p-button severity="contrast" label="Confirmar" (onClick)="onAccept()" styleClass="w-32"></p-button>
+        <p-button  severity="secondary" label="Cancelar" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirm-dialog>
+
+<p-dialog header="Resultados" [modal]="true" [(visible)]="visible" [style]="{ width: '20rem' }">
+  <span class="p-text-secondary block mb-8">{{ resultMessage }}</span>
+  <div class="text-center">
+    <p-button (click)="visible = false" [severity]="messageSeverity">
+      <i class="pi {{messageEmoji}} p-5"></i>
+    </p-button>
+  </div>
+</p-dialog>
+
+
+<footer class="mt-15 mb-15">
+
+  <div class="flex items-center justify-center">
+    <p-button severity="secondary" (click)="confirm()" rounded="rounded">
+      <span class="text-9xl text-gray-900 p-5">
+        Responder
+      </span>
+    </p-button>
+  </div>
+</footer>

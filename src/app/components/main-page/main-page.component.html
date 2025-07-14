@@ -10,7 +10,8 @@
   </div>
 </header>
 <section class="bg-splash border-3 border-blue-50 rounded-2xl flex justify-center items-center">
-  <p-button (click)="showRegisterDialogue()" styleClass="shadow-lg shadow-cyan-100 font-zen-dots-regular w-50" label="Empieza ya" severity="contrast"/>
+  <p-button (click)="showRegisterDialogue()" styleClass="shadow-lg shadow-cyan-100 font-zen-dots-regular w-50" rounded="rounded
+" label="Empieza ya" severity="contrast"/>
 </section>
 <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="dialogueVisible" styleClass="!border-0 !bg-transparent">
   <ng-template #headless>
@@ -108,7 +109,6 @@
     </ng-template>
     <ng-template #content let-event>
       <p-card [header]="event.status">
-        <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
         <p>{{event.description}}</p>
       </p-card>
     </ng-template>
